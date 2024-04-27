@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('pshes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->string('apellido1');
             $table->string('apellido2');
+            $table->string('email')->unique()->nullable();
             $table->string('dni')->unique();
             $table->enum('sexo', ['hombre', 'mujer']);
             $table->string('estado_civil');

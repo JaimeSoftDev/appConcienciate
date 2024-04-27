@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
                 'apellido1' => 'Maciá',
                 'apellido2' => 'Mora',
                 'email' => 'jaime.cbme.98@gmail.com',
-                'password' => 'jaime',
+                'password' => 'password',
                 'dni' => '74386548V',
             ]
         ];
