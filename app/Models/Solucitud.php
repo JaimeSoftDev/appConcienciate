@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Solucitud extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function psh()
+    {
+        $this->belongsTo('psh');
+    }
 }

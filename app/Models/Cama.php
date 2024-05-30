@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Cama extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function psh(){
+        $this->belongsTo('psh');
+    }
 }

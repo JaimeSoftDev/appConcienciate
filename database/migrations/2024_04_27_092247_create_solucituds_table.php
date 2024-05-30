@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('solucituds', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('psh_id');
             $table->string('articulo_solicitado');
-            $table->enum('estado', ['solicitado', 'en_proceso', 'realizado']);
+            $table->enum('estado', ['solicitado', 'proceso', 'realizado']);
             $table->date('fecha');
             $table->timestamps();
         });

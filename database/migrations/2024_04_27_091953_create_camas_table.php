@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('modulo', ['masculino', 'femenino']);
             $table->boolean('emergencia');
             $table->boolean('asignada');
+            $table->unsignedBigInteger('psh_id')->nullable();
             $table->timestamps();
         });
     }

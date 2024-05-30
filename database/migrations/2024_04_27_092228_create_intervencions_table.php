@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('intervencions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('psh_id');
             $table->enum('campo', ['psicologia', 'trabajo_social', 'dispositivo_acogida']);
             $table->enum('area', ['social,', 'economica', 'laboral', 'vivienda', 'saniaria', 'incidencia', 'observación']);
             $table->text('descripcion');
