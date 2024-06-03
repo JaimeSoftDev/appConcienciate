@@ -31,7 +31,7 @@ class UsersSeeder extends Seeder
                 'apellido2' => 'Maciá',
                 'email' => 'santiago.cbme.98@gmail.com',
                 'password' => 'password',
-                'dni' => '74386548V',
+                'dni' => '74386549V',
             ];
         $userEmpleado = User::create($usuarioEmpleado);
         $userEmpleado->assignRole($rolEmpleado);
