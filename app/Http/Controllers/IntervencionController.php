@@ -2,64 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateIntervencionRequest;
 use App\Models\Intervencion;
+use App\Models\Psh;
 use Illuminate\Http\Request;
 
 class IntervencionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $intervenciones = Intervencion::with('psh')->get();
+        return view('intervenciones.index', compact('intervenciones'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('intervenciones.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CreateIntervencionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Intervencion::create($validated);
+        return redirect()->route('intervenciones.index')->with('success', 'Intervención creada con éxito.');
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Intervencion $intervencion)
     {
-        //
+        $intervencion->load('psh');
+        return view('intervenciones.show', compact('intervencion'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Intervencion $intervencion)
     {
-        //
+        return view('intervenciones.edit', compact('intervencion'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Intervencion $intervencion)
+    public function update(CreateIntervencionRequest $request, Intervencion $intervencion)
     {
-        //
+        $validated = $request->validated();
+        $intervencion->update($validated);
+        return redirect()->route('intervenciones.index')->with('success', 'Intervención actualizada con éxito.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Intervencion $intervencion)
     {
-        //
+        $intervencion->delete();
+        return redirect()->route('intervenciones.index')->with('success', 'Intervención eliminada con éxito.');
     }
 }

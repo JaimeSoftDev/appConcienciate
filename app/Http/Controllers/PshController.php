@@ -2,64 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePshRequest;
+use App\Http\Requests\UpdatePshRequest;
+use App\Models\Cama;
+use App\Models\Intervencion;
 use App\Models\Psh;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
 class PshController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pshs = Psh::with(['cama', 'solicituds', 'intervencions'])->get();
+        return view('pshs.index', compact('pshs'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('pshs.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CreatePshRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $psh = Psh::create($validated);
+        return redirect()->route('pshs.index')->with('success', 'PSH creado con éxito.');
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Psh $psh)
     {
-        //
+        $psh->load(['cama', 'solicituds', 'intervencions']);
+        return view('pshs.show', compact('psh'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Psh $psh)
     {
-        //
+        return view('pshs.edit', compact('psh'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Psh $psh)
+    public function update(UpdatePshRequest $request, Psh $psh)
     {
-        //
+        $validated = $request->validated();
+        $psh->update($validated);
+        return redirect()->route('pshs.index')->with('success', 'PSH actualizado con éxito.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Psh $psh)
     {
-        //
+        $psh->delete();
+        return redirect()->route('pshs.index')->with('success', 'PSH eliminado con éxito.');
     }
 }

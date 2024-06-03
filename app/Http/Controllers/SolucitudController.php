@@ -2,64 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Solucitud;
+use App\Http\Requests\CreateSolicitudRequest;
+use App\Models\Psh;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
-class SolucitudController extends Controller
+class SolicitudController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de las solicitudes.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $solicitudes = Solicitud::with('psh')->get();
+        return view('solicitudes.index', compact('solicitudes'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('solicitudes.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CreateSolicitudRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Solicitud::create($validated);
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Solucitud $solucitud)
+    public function show(Solicitud $solicitud)
     {
-        //
+        $solicitud->load('psh');
+        return view('solicitudes.show', compact('solicitud'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Solucitud $solucitud)
+    public function edit(Solicitud $solicitud)
     {
-        //
+        return view('solicitudes.edit', compact('solicitud'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Solucitud $solucitud)
+    public function update(CreateSolicitudRequest $request, Solicitud $solicitud)
     {
-        //
+        $validated = $request->validated();
+        $solicitud->update($validated);
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud actualizada con éxito.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Solucitud $solucitud)
+    public function destroy(Solicitud $solicitud)
     {
-        //
+        $solicitud->delete();
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud eliminada con éxito.');
     }
 }

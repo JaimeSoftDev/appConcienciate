@@ -3,63 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cama;
+use App\Models\Psh;
 use Illuminate\Http\Request;
 
 class CamaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de las camas.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $camas = Cama::with('psh')->get();
+        return view('camas.index', compact('camas'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Cama $cama)
     {
-        //
+        $cama->load('psh');
+        return view('camas.show', compact('cama'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Cama $cama)
     {
-        //
+        $pshs = Psh::all();
+        $cama->load('psh');
+        return view('camas.edit', compact('cama', 'pshs'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Cama $cama)
     {
-        //
-    }
+        $validated = $request->validate([
+            'nombre' => 'sometimes|required|string|max:255',
+            'descripcion' => 'sometimes|required|string|max:255',
+            'psh_id' => 'sometimes|required|exists:pshs,id',
+            // Agrega aquí más reglas de validación según sea necesario
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cama $cama)
-    {
-        //
+        $cama->update($validated);
+
+        return redirect()->route('camas.index')->with('success', 'Cama actualizada con éxito.');
     }
 }
