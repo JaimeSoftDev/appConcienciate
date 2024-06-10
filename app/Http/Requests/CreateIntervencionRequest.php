@@ -23,8 +23,8 @@ class CreateIntervencionRequest extends FormRequest
     {
         return [
             'psh_id' => 'required|integer|exists:pshes,id',
-            'campo' => 'required|string|in:psicologia, trabajo_social, dispositivo_acogida',
-            'area' => 'required|string|in:social, economica, laboral, vivienda, saniaria, incidencia, observación',
+            'campo' => 'required|string|in:psicologia,trabajo_social,dispositivo_acogida',
+            'area' => 'required|string|in:social,economica,laboral,vivienda,sanitaria,incidencia,observación',
             'descripcion' => 'required|string|max:255',
             'fecha' => 'required|date',
         ];

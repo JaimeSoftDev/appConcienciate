@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('psh_id');
             $table->enum('campo', ['psicologia', 'trabajo_social', 'dispositivo_acogida']);
-            $table->enum('area', ['social,', 'economica', 'laboral', 'vivienda', 'saniaria', 'incidencia', 'observación']);
+            $table->enum('area', ['social', 'economica', 'laboral', 'vivienda', 'sanitaria', 'incidencia', 'observación']);
             $table->text('descripcion');
             $table->date('fecha');
             $table->timestamps();

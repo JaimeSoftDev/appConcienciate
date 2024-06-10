@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCamaRequest;
 use App\Models\Cama;
 use App\Models\Psh;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class CamaController extends Controller
      */
     public function index()
     {
+        $pshs = Psh::doesntHave('cama')->get();
         $camas = Cama::with('psh')->get();
-        return view('camas.index', compact('camas'));
+        return view('camas.index', compact('camas', 'pshs'));
     }
     public function show(Cama $cama)
     {
@@ -29,16 +31,9 @@ class CamaController extends Controller
         $cama->load('psh');
         return view('camas.edit', compact('cama', 'pshs'));
     }
-    public function update(Request $request, Cama $cama)
+    public function update(UpdateCamaRequest $request, Cama $cama)
     {
-        $validated = $request->validate([
-            'nombre' => 'sometimes|required|string|max:255',
-            'descripcion' => 'sometimes|required|string|max:255',
-            'psh_id' => 'sometimes|required|exists:pshs,id',
-            // Agrega aquí más reglas de validación según sea necesario
-        ]);
-
-        $cama->update($validated);
+        $cama->update($request->validated());
 
         return redirect()->route('camas.index')->with('success', 'Cama actualizada con éxito.');
     }

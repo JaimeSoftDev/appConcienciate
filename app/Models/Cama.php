@@ -9,7 +9,8 @@ class Cama extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function psh(){
-        $this->belongsTo('psh');
+    public function psh()
+    {
+        return $this->belongsTo(Psh::class);
     }
 }

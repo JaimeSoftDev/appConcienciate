@@ -23,11 +23,11 @@ class UpdatePshRequest extends FormRequest
     {
         return [
             'nombre' => 'required|string|max:50',
-            'aplelido1' => 'required|string|max:50',
-            'aplelido2' => 'required|string|max:50',
-            'email' => 'string|email|max:50|unique:pshes, email,' . $this->psh->email,
-            'dni' => 'required|string|regex:/^\d{8}[a-zA-Z]$/|unique:pshes, dni,' . $this->psh->dni,
-            'sexo' => 'required|string|email|in:hombre,mujer',
+            'apellido1' => 'required|string|max:50',
+            'apellido2' => 'required|string|max:50',
+            'email' => 'string|email|max:50|unique:pshes,email,' . $this->psh->id,
+            'dni' => 'required|string|regex:/^\d{8}[a-zA-Z]$/|unique:pshes,dni,' . $this->psh->id,
+            'sexo' => 'required|string|in:hombre,mujer',
             'estado_civil' => 'required|string|in:casado,soltero,otro',
         ];
     }

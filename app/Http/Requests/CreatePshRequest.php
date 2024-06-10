@@ -23,11 +23,11 @@ class CreatePshRequest extends FormRequest
     {
         return [
             'nombre' => 'required|string|max:50',
-            'aplelido1' => 'required|string|max:50',
-            'aplelido2' => 'required|string|max:50',
-            'email' => 'string|email|max:50|unique:pshes',
+            'apellido1' => 'required|string|max:50',
+            'apellido2' => 'required|string|max:50',
+            'email' => 'nullable|string|email|max:50|unique:pshes',
             'dni' => 'required|string|regex:/^\d{8}[a-zA-Z]$/|unique:pshes',
-            'sexo' => 'required|string|email|in:hombre,mujer',
+            'sexo' => 'required|string|in:hombre,mujer',
             'estado_civil' => 'required|string|in:casado,soltero,otro',
         ];
     }

@@ -9,16 +9,26 @@ class Psh extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    const SEXO = [
+        'hombre' => 'hombre',
+        'mujer' => 'mujer',
+    ];
+    const ESTADO_CIVIL = [
+        'casado' => 'casado',
+        'soltero' => 'soltero',
+        'otro' => 'otro',
+    ];
     public function cama()
     {
-        $this->hasOne('cama');
+        return $this->hasOne(Cama::class);
     }
     public function solicituds()
     {
-        $this->hasMany('solicitud');
+        return $this->hasMany(Solicitud::class);
     }
     public function intervencions()
     {
-        $this->hasMany('intervencion');
+        return $this->hasMany(Intervencion::class);
     }
 }

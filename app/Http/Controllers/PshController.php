@@ -15,11 +15,14 @@ class PshController extends Controller
     public function index()
     {
         $pshs = Psh::with(['cama', 'solicituds', 'intervencions'])->get();
+
         return view('pshs.index', compact('pshs'));
     }
     public function create()
     {
-        return view('pshs.create');
+        $sexos = Psh::SEXO;
+        $estados_civiles = Psh::ESTADO_CIVIL;
+        return view('pshs.create', compact('sexos', 'estados_civiles'));
     }
     public function store(CreatePshRequest $request)
     {
@@ -30,11 +33,14 @@ class PshController extends Controller
     public function show(Psh $psh)
     {
         $psh->load(['cama', 'solicituds', 'intervencions']);
-        return view('pshs.show', compact('psh'));
+        $estados = Solicitud::ESTADOS;
+        return view('pshs.show', compact('psh', 'estados'));
     }
     public function edit(Psh $psh)
     {
-        return view('pshs.edit', compact('psh'));
+        $sexos = Psh::SEXO;
+        $estados_civiles = Psh::ESTADO_CIVIL;
+        return view('pshs.edit', compact('psh', 'sexos', 'estados_civiles'));
     }
     public function update(UpdatePshRequest $request, Psh $psh)
     {

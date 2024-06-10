@@ -9,8 +9,13 @@ class Solicitud extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    const ESTADOS = [
+        'solicitado' => 'solicitado',
+        'proceso' => 'proceso',
+        'realizado' => 'realizado',
+    ];
     public function psh()
     {
-        $this->belongsTo('psh');
+        return $this->belongsTo(Psh::class);
     }
 }

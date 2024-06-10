@@ -11,7 +11,7 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->hasRoles('admin');
+        return auth()->user()->hasRole('admin');
     }
 
     /**
@@ -23,10 +23,10 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'nombre' => 'required|string|max:50',
-            'aplelido1' => 'required|string|max:50',
-            'aplelido2' => 'required|string|max:50',
+            'apellido1' => 'required|string|max:50',
+            'apellido2' => 'required|string|max:50',
             'email' => 'required|string|email|max:50|unique:users',
-            'password' => 'required|string|min:6|',
+            'password' => 'required|string|min:6',
             'dni' => 'required|string|regex:/^\d{8}[a-zA-Z]$/|unique:users',
         ];
     }

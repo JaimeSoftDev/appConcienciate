@@ -38,15 +38,9 @@ class UserController extends Controller
     }
     public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = $request->validated();
+        $user->update($request->validated());
 
-        if (isset($validated['password'])) {
-            $validated['password'] = bcrypt($validated['password']);
-        }
-
-        $user->update($validated);
-
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado con éxito.');
+        return redirect()->route('users.index')->with('success', 'Empleado actualizado con éxito.');
     }
     public function destroy(User $user)
     {
