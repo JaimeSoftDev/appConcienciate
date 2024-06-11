@@ -13,6 +13,7 @@ RUN rm -rf /app/vendor
 RUN rm -rf /app/composer.lock
 RUN composer install
 RUN composer require laravel/octane spiral/roadrunner
+RUN rm -rf node_modules package-lock.json
 RUN npm install
 RUN npm run dev
 COPY .env.example .env
